@@ -3,8 +3,6 @@ const socketIOClient = require('socket.io-client');
 class Bot {
   socket;
 
-  config;
-
   game_uuid;
 
   name;
@@ -32,9 +30,8 @@ class Bot {
     this.socket.on('connect_error', err => {
       this.logger.error('connect_error error', err);
     });
-    this.socket.on('welcome', config => {
-      this.logger.info(`[${this.name}] Got welcome`);
-      this.config = config;
+    this.socket.on('connect', () => {
+      this.logger.info(`[${this.name}] connected`);
       setTimeout(() => {
         this.join();
       }, 1000);
